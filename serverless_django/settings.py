@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
+
+#  https://www.serverless.com/blog/django-serverless-framework-a-match-made-in-heaven
+# https://blog.apcelent.com/deploy-django-app-aws-lambda.html
 import logging
 import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -26,7 +29,7 @@ SECRET_KEY = 'c7i)i3b29)el++h0)2(-d690xz!y(&*h)vv=1vy66@9^*1m4a#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.execute-api.us-east-1.amazonaws.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.execute-api.us-east-1.amazonaws.com', 'localhost']
 
 # Application definition
 
@@ -39,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'zappa_django_utils',
     'rest_framework',
-    'users'
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +74,10 @@ TEMPLATES = [
         },
     },
 ]
+CORS_ORIGIN_ALLOW_ALL = True
+
+AUTH_USER_MODEL = 'users.AppUser'
+AUTH_USER_EMAIL_UNIQUE = True
 
 WSGI_APPLICATION = 'serverless_django.wsgi.application'
 
@@ -138,10 +145,10 @@ WHITENOISE_STATIC_PREFIX = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 SQLITE_BUCKET = os.environ.get('SQLITE_BUCKET', "serverless-django")
-try:
-    from .local_settings import *
-except ImportError:
-    logging.error("Unable to find local_settings.py")
+# try:
+#     from .local_settings import *
+# except ImportError:
+#     logging.error("Unable to find local_settings.py")
 
 # Are we running in Lambda environment ?
 # See https://docs.aws.amazon.com/lambda/latest/dg/current-supported-versions.html#lambda-environment-variables

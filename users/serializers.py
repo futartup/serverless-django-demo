@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from users.models import Configuration
+from users.models import *
 
 
 class ConfigurationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Configuration
-        fields = ('key', 'value')
+        model = AppUser
+        fields = ('first_name', 'last_name')
