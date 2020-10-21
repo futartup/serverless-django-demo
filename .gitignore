@@ -8,6 +8,10 @@ __pycache__/
 # C extensions
 *.so
 
+venv/
+presentation/
+Docs/
+
 # Distribution / packaging
 .Python
 build/
